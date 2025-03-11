@@ -7,19 +7,24 @@ import sys
 from shot import *
 
 def main():
+    #GROUPS
     updatable  = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     shots = pygame.sprite.Group()
     
+    #CONTAINERS
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids,updatable, drawable)
     AsteroidField.containers = updatable
     Shot.containers = (drawable,shots,updatable)
 
+    #Initializing Game
     pygame.init()
     
+    #OBJECTS
     AsteroidField()
+
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
@@ -42,6 +47,11 @@ def main():
             if i.collisions(player) == True:
                 print("Game over!")
                 sys.exit()
+        for i in asteroids:
+            for n in shots:
+                if i.collisions(n):
+                    i.kill()
+                    n.kill()
         
 
 if __name__ == "__main__":
