@@ -22,15 +22,19 @@ def main():
     #Initializing Game
     pygame.init()
     
-    #OBJECTS
-    AsteroidField()
-
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    #Variables
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    dt = 0
+
+    #OBJECTS
+    AsteroidField()
     player = Player(x,y)
     clock = pygame.time.Clock()
-    dt = 0
+
+
+    
     while(True):
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
@@ -50,7 +54,7 @@ def main():
         for i in asteroids:
             for n in shots:
                 if i.collisions(n):
-                    i.kill()
+                    i.split(dt)
                     n.kill()
         
 
